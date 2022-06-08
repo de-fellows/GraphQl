@@ -19,7 +19,7 @@ class Music(db.Model):
 
 @app.route('/')
 def index():
-    return "Hello World!"
+    return "<h1>Music Genres!</h>"
 
 
 @app.route("/music")
@@ -36,7 +36,7 @@ def get_music():
 
 
 @app.route('/music/<id>')
-def get_driink(id):
+def get_music_id(id):         
     music = Music.query.get_or_404(id)         # this will either fetch the drink with a specific id or return a 404 error
     return {"name": music.name, "description":music.description}
 
