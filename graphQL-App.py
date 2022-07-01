@@ -28,7 +28,7 @@ class Music(db.Model):
 class MusicObject(SQLAlchemyObjectType):
     class Meta:
        model = Music
-       interfaces = (graphene.relay.Node, ) 
+       interfaces = (graphene.relay.Node) 
 
 
 
@@ -44,7 +44,7 @@ class CreateMusic(graphene.Mutation):
         name =graphene.String(required=True)
         description =graphene.String(required=True)
     
-    def mutate(self, name, description):
+    def mutate(self, info, name, description):
         music = Music(name=name, description=description)
         if music:
             db.session.add(music)
@@ -54,8 +54,7 @@ class CreateMusic(graphene.Mutation):
 
 
 class Mutation(graphene.ObjectType):
-    create_user = CreateMusic.Field()
-
+    create_music = CreateMusic.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
